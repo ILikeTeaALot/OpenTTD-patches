@@ -508,6 +508,12 @@ static void Load_PLYR()
 		if (SlXvIsFeaturePresent(XSLFI_AUTO_TIMETABLE, 1, 3)) {
 			c->settings.vehicle.auto_separation_by_default = _settings_game.order.old_timetable_separation;
 		}
+		if (SlXvIsFeaturePresent(XSLFI_INFRA_SHARING, 1, 2)) {
+			c->settings.sharing_fee[0] = _settings_game.economy.old_sharing_fee[0];
+			c->settings.sharing_fee[1] = _settings_game.economy.old_sharing_fee[1];
+			c->settings.sharing_fee[2] = _settings_game.economy.old_sharing_fee[2];
+			c->settings.sharing_fee[3] = _settings_game.economy.old_sharing_fee[3];
+		}
 	}
 }
 

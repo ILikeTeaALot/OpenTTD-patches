@@ -682,7 +682,7 @@ struct EconomySettings {
 	bool   station_noise_level;              ///< build new airports when the town noise level is still within accepted limits
 	uint16 town_noise_population[3];         ///< population to base decision on noise evaluation (@see town_council_tolerance)
 	bool   infrastructure_sharing[4];        ///< enable infrastructure sharing for rail/road/water/air
-	uint   sharing_fee[4];                   ///< fees for infrastructure sharing for rail/road/water/air
+	uint   old_sharing_fee[4];               ///< old fees for infrastructure sharing for rail/road/water/air - replaced by company setting
 	bool   sharing_payment_in_debt;          ///< allow fee payment for companies with more loan than money (switch off to prevent MP exploits)
 	bool   allow_town_level_crossings;       ///< towns are allowed to build level crossings
 	int8   old_town_cargo_factor;            ///< old power-of-two multiplier for town (passenger, mail) generation. May be negative.
@@ -744,19 +744,20 @@ struct VehicleDefaultSettings {
 
 /** Settings that can be set per company. */
 struct CompanySettings {
-	bool engine_renew;                       ///< is autorenew enabled
-	int16 engine_renew_months;               ///< months before/after the maximum vehicle age a vehicle should be renewed
+	bool   engine_renew;                     ///< is autorenew enabled
+	int16  engine_renew_months;              ///< months before/after the maximum vehicle age a vehicle should be renewed
 	uint32 engine_renew_money;               ///< minimum amount of money before autorenew is used
-	bool renew_keep_length;                  ///< sell some wagons if after autoreplace the train is longer than before
+	bool   renew_keep_length;                ///< sell some wagons if after autoreplace the train is longer than before
 	VehicleDefaultSettings vehicle;          ///< default settings for vehicles
-	uint8 order_occupancy_smoothness;        ///< percentage smoothness of occupancy measurement changes
+	uint8  order_occupancy_smoothness;       ///< percentage smoothness of occupancy measurement changes
 	uint8  auto_timetable_separation_rate;   ///< percentage of auto timetable separation change to apply
-	bool infra_others_buy_in_depot[4];       ///< other companies can buy/autorenew in this companies depots (where infra sharing enabled)
+	bool   infra_others_buy_in_depot[4];     ///< other companies can buy/autorenew in this companies depots (where infra sharing enabled)
 	uint16 timetable_autofill_rounding;      ///< round up timetable times to be a multiple of this number of ticks
-	bool advance_order_on_clone;             ///< when cloning a vehicle or copying/sharing an order list, advance the current order to a suitable point
-	bool copy_clone_add_to_group;            ///< whether to add cloned vehicles to the source vehicle's group, when cloning a vehicle without sharing orders
+	bool   advance_order_on_clone;           ///< when cloning a vehicle or copying/sharing an order list, advance the current order to a suitable point
+	bool   copy_clone_add_to_group;          ///< whether to add cloned vehicles to the source vehicle's group, when cloning a vehicle without sharing orders
+	uint   sharing_fee[4];                   ///< fees for infrastructure sharing for rail/road/water/air
 
-	byte old_simulated_wormhole_signals;     ///< no longer needs a setting: tunnel/bridge signal simulation spacing
+	byte   old_simulated_wormhole_signals;   ///< no longer needs a setting: tunnel/bridge signal simulation spacing
 };
 
 /** Debug settings. */

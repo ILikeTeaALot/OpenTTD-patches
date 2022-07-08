@@ -33,9 +33,8 @@
  * @param infra_owner The owner of the infrastructure
  * @param cost Amount to transfer as money fraction (shifted 8 bits to the left)
  */
-static void PaySharingFee(Vehicle *v, Owner infra_owner, Money cost)
+static void PaySharingFee(Vehicle *v, Owner infra_owner, Money cost, Company *c)
 {
-	Company *c = Company::Get(v->owner);
 	if (!_settings_game.economy.sharing_payment_in_debt) {
 		/* Do not allow fee payment to drop (money - loan) below 0. */
 		cost = std::min(cost, (c->money - c->current_loan) << 8);
@@ -54,8 +53,11 @@ static void PaySharingFee(Vehicle *v, Owner infra_owner, Money cost)
 void PayStationSharingFee(Vehicle *v, const Station *st)
 {
 	if (v->owner == st->owner || st->owner == OWNER_NONE || v->type == VEH_TRAIN) return;
-	Money cost = _settings_game.economy.sharing_fee[v->type];
-	PaySharingFee(v, st->owner, (cost << 8) / DAY_TICKS);
+	Company *c = Company::Get(v->owner);
+	// DONE: Make setting per-company
+	// Money cost = _settings_game.economy.old_sharing_fee[v->type]; // <- Old code
+	Money cost = c->settings.sharing_fee[v->type];
+	PaySharingFee(v, st->owner, (cost << 8) / DAY_TICKS, c);
 }
 
 uint16 is2_GetWeight(Train *v)
@@ -81,12 +83,15 @@ void PayDailyTrackSharingFee(Train *v)
 {
 	Owner owner = GetTileOwner(v->tile);
 	if (owner == v->owner) return;
-	Money cost = _settings_game.economy.sharing_fee[VEH_TRAIN] << 8;
+	Company *c = Company::Get(v->owner);
+	// DONE: Make setting per-company
+	// Money cost = _settings_game.economy.old_sharing_fee[VEH_TRAIN] << 8; // <- Old code
+	Money cost = c->settings.sharing_fee[VEH_TRAIN] << 8;
 	/* Cost is calculated per 1000 tonnes */
 	cost = cost * is2_GetWeight(v) / 1000;
 	/* Only pay the required fraction */
 	cost = cost * v->running_ticks / DAY_TICKS;
-	if (cost != 0) PaySharingFee(v, owner, cost);
+	if (cost != 0) PaySharingFee(v, owner, cost, c);
 }
 
 /**

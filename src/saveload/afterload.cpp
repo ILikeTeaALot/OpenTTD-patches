@@ -2779,6 +2779,15 @@ bool AfterLoadGame()
 		}
 	}
 
+	if (SlXvIsFeaturePresent(XSLFI_INFRA_SHARING, 1, 2)) {
+		for (Company *c : Company::Iterate()) {
+			c->settings.sharing_fee[0] = _settings_game.economy.old_sharing_fee[0];
+			c->settings.sharing_fee[1] = _settings_game.economy.old_sharing_fee[1];
+			c->settings.sharing_fee[2] = _settings_game.economy.old_sharing_fee[2];
+			c->settings.sharing_fee[3] = _settings_game.economy.old_sharing_fee[3];
+		}
+	}
+
 	/* In old versions it was possible to remove an airport while a plane was
 	 * taking off or landing. This gives all kind of problems when building
 	 * another airport in the same station so we don't allow that anymore.

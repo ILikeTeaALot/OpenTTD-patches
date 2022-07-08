@@ -2264,10 +2264,10 @@ static SettingsContainer &GetSettingsTree()
 				sharing->Add(new SettingEntry("economy.infrastructure_sharing[1]"));
 				sharing->Add(new SettingEntry("economy.infrastructure_sharing[2]"));
 				sharing->Add(new SettingEntry("economy.infrastructure_sharing[3]"));
-				sharing->Add(new SettingEntry("economy.sharing_fee[0]"));
-				sharing->Add(new SettingEntry("economy.sharing_fee[1]"));
-				sharing->Add(new SettingEntry("economy.sharing_fee[2]"));
-				sharing->Add(new SettingEntry("economy.sharing_fee[3]"));
+				sharing->Add(new SettingEntry("company.sharing_fee[0]"));
+				sharing->Add(new SettingEntry("company.sharing_fee[1]"));
+				sharing->Add(new SettingEntry("company.sharing_fee[2]"));
+				sharing->Add(new SettingEntry("company.sharing_fee[3]"));
 				sharing->Add(new SettingEntry("economy.sharing_payment_in_debt"));
 			}
 
